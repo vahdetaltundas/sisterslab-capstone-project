@@ -11,20 +11,17 @@ import { useRouter } from "next/router";
 import { useSession, signIn } from "next-auth/react";
 
 const Login = () => {
-  const { data: session } = useSession();
-  console.log(session);
+  // const { data: session } = useSession();
+  // console.log(session);
   const router = useRouter();
   const formik = useFormik({
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: (values) => {
+    onSubmit: async(values) => {
       try {
-        if (values.rememberMe) {
-          localStorage.setItem("remember_me", values.rememberMe);
-          localStorage.setItem("access_token", "token");
-        } else {
-          localStorage.setItem("remember_me", false);
-        }
+        const {email,password}=values;
+        let optionst={redirect:false,email,password};
+        const res=await signIn("credentials",optionst);
         toast.success("Giriş Başarılı.");
         router.push("/");
       } catch (error) {
@@ -57,7 +54,7 @@ const Login = () => {
               E-mail
             </label>
             <input
-              name="email"
+              name="username"
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john@mail.com"
@@ -89,22 +86,6 @@ const Login = () => {
               <ErrorMessage errorMessage={formik.errors.password} />
             ) : null}
           </div>
-          {/* <div className="flex items-center me-4">
-            <input
-              id="rememberMe"
-              type="checkbox"
-              value={formik.values.rememberMe}
-              onChange={formik.handleChange}
-              className="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor="rememberMe"
-              className="ms-2 text-sm font-medium text-[#000] cursor-pointer dark:text-gray-300"
-            >
-              Remember Me
-            </label>
-          </div> */}
-
           <button
             type="submit"
             className="w-full rounded-lg bg-[#616161] border-2 text-white focus:ring-2 focus:outline-none  font-medium  text-sm px-5 py-2.5 text-center mb-10 "
