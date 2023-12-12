@@ -7,7 +7,7 @@ const Header = () => {
   const [search, setSearch] = useState("");
   console.log(search);
   return (
-    <header className="container mx-auto">
+    <header className="container mx-auto shadow-xl">
       <nav className="flex flex-row bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 h-16">
         <div className="basis-1/3 flex justify-between items-center">
           <Link href="/" className="w-[7rem] h-auto">

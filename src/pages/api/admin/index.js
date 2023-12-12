@@ -17,7 +17,7 @@ const handler = async (req, res) => {
       })
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("30s") // Set your own expiration time
+        .setExpirationTime("300000000s") // Set your own expiration time
         .sign(getJwtSecretKey());
       res.setHeader(
         "Set-Cookie",
@@ -27,9 +27,9 @@ const handler = async (req, res) => {
           path: "/",
         })
       );
-      res.status(200).json({ message: "Success" });
+      res.status(200).json({ message: "Success" , success: true });
     } else {
-      res.status(400).json({ message: "Wrong Credentials" });
+      res.status(200).json({ message: "Wrong Credentials", success: false  });
     }
   }
 };

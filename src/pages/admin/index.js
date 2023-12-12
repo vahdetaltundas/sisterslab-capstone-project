@@ -1,19 +1,39 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import ErrorMessage from "@/components/errormessage";
-import { adminLoginInitialValues, adminLoginValidationSchema } from "@/validations/adminLoginValidation";
+import {
+  adminLoginInitialValues,
+  adminLoginValidationSchema,
+} from "@/validations/adminLoginValidation";
 import axios from "axios";
 import { useFormik } from "formik";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 
 const index = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const formik = useFormik({
     initialValues: adminLoginInitialValues,
     validationSchema: adminLoginValidationSchema,
     onSubmit: async (values) => {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin`, {
-            username: values.username,
-            password: values.password,
-          });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/admin`,
+        {
+          username: values.username,
+          password: values.password,
+        }
+      );
+      const { success } = await response.data;
+      if (success) {
+        const nextUrl = searchParams.get("next");
+        toast.success("Giriş Başarılı");
+        router.push(nextUrl ?? "/");
+        router.refresh();
+      } else {
+        toast.error("Username yada password hatalı");
+      }
     },
   });
   return (
@@ -41,8 +61,8 @@ const index = () => {
                 onChange={formik.handleChange}
               />
               {formik.touched.username && formik.errors.username ? (
-              <ErrorMessage errorMessage={formik.errors.username} />
-            ) : null}
+                <ErrorMessage errorMessage={formik.errors.username} />
+              ) : null}
             </div>
             <div className="mb-4">
               <label
