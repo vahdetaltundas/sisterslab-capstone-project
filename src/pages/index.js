@@ -1,13 +1,15 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import Header from '@/components/layout/Header'
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
+import Carousel from "@/components/ui/ImageSlider";
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  
   return (
     <>
-    <Header/>
+      <Header />
+      <Carousel />
+      <Footer/>
     </>
-  )
+  );
 }

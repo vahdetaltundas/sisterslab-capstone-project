@@ -9,11 +9,14 @@ import ErrorMessage from "../../../components/errormessage/index.js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession, signIn, getSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Login = () => {
   const { data: session } = useSession();
-  const router = useRouter();
+  const  {push}  = useRouter();
+  const [currentUser, setCurrentUser] = useState();
+
   const formik = useFormik({
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
@@ -32,10 +35,21 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (session) {
-      router.push("/profile");
-    }
-  }, [session,router]);
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setCurrentUser(
+          res.data?.find((user) => user.email === session?.user?.email)
+        );
+        if(currentUser){
+          push("/profile/" + currentUser._id);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [session, push, currentUser]);
 
   return (
     <div className="columns-1 sm:columns-2 ">
@@ -135,11 +149,13 @@ const Login = () => {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
-
-  if (session) {
+  
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const user = res.data?.find((user) => user.email === session?.user.email);
+  if (session && user) {
     return {
       redirect: {
-        destination: "/profile",
+        destination: "/profile/" + user._id,
         permanent: false,
       },
     };

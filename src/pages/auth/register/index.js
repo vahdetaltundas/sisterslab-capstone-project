@@ -17,7 +17,7 @@ const Register = () => {
       try {
         await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/register`, {
           email: values.email,
-          username: values.name,
+          username: values.username,
           password: values.password,
         });
         toast.success("Kayıt Başarılı.")
