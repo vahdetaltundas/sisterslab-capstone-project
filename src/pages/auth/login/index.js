@@ -8,38 +8,49 @@ import ErrorMessage from "../../../components/errormessage/index.js";
 // import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, getSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const Login = () => {
-  // const { data: session } = useSession();
-  // console.log(session);
+  const { data: session } = useSession();
   const router = useRouter();
   const formik = useFormik({
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: async(values) => {
-      try {
-        const {email,password}=values;
-        let optionst={redirect:false,email,password};
-        const res=await signIn("credentials",optionst);
-        toast.success("Giriş Başarılı.");
-        router.push("/");
-      } catch (error) {
-        toast.error("Giriş yapılamadı!");
-      }
+    onSubmit: async (values) => {
+      const { email, password } = values;
+      let options = { redirect: false, email, password };
+     
+        const res = await signIn("credentials", options);
+        if(res.ok){
+          toast.success("Giriş Başarılı");
+        }else{
+          toast.error("email yada şifre hatalı");
+        }
+      
     },
   });
+
+  useEffect(() => {
+    if (session) {
+      router.push("/profile");
+    }
+  }, [session,router]);
 
   return (
     <div className="columns-1 sm:columns-2 ">
       <img
-        src="/img/Picture.png"
+        src="https://i.imgur.com/Bduouzl.png"
         alt="Picture"
         className="hidden sm:block w-full h-[100vh]"
       />
       <div className="flex flex-col items-center sm:p-5 lg:p-10">
         <Link href="/">
-          <img src="/img/Logo.png" className="w-40" alt="logo" />
+          <img
+            src="https://i.imgur.com/vTCA3oj.png"
+            className="w-40"
+            alt="logo"
+          />
         </Link>
       </div>
       <div className="flex flex-col sm:px-[4rem] lg:px-[8rem]">
@@ -54,7 +65,7 @@ const Login = () => {
               E-mail
             </label>
             <input
-              name="username"
+              name="email"
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john@mail.com"
@@ -102,7 +113,7 @@ const Login = () => {
         </Link>
         <button
           type="button"
-          className="px-5 py-2.5 mt-5 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+          className="px-5 py-2.5 mt-5  flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
           onClick={() => signIn("github")}
         >
           <svg
@@ -122,4 +133,20 @@ const Login = () => {
   );
 };
 
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 export default Login;

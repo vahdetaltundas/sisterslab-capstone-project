@@ -32,6 +32,23 @@ const handler = async (req, res) => {
       res.status(200).json({ message: "Wrong Credentials", success: false  });
     }
   }
+
+  if (method === "PUT") {
+    const token = await new SignJWT({})
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime("300000000s") // Set your own expiration time
+      .sign(getJwtSecretKey());
+    res.setHeader(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        maxAge: -1,
+        sameSite: "strict",
+        path: "/",
+      })
+    );
+    res.status(200).json({ message: "Success" });
+  }
 };
 
 export default handler;

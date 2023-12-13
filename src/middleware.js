@@ -3,6 +3,7 @@ import { verifyJwtToken } from "./util/verifyJwtToken";
 import { NextResponse } from "next/server";
 
 
+
 export async function middleware(request) {
   const { url, nextUrl, cookies } = request;
   const { value: token } = cookies.get("token") ?? { value: null };

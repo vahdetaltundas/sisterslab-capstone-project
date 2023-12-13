@@ -29,8 +29,7 @@ const index = () => {
       if (success) {
         const nextUrl = searchParams.get("next");
         toast.success("Giriş Başarılı");
-        router.push(nextUrl ?? "/");
-        router.refresh();
+        router.push(nextUrl ?? "/admin/profile");
       } else {
         toast.error("Username yada password hatalı");
       }
@@ -39,7 +38,7 @@ const index = () => {
   return (
     <div
       className="bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: 'url("./img/Banner.jpg")' }}
+      style={{ backgroundImage: 'url("https://i.imgur.com/oAKhJq6.jpeg")' }}
     >
       <div className="h-screen flex justify-center items-center">
         <div className="bg-white mx-4 p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3">

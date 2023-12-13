@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { toast } from 'react-toastify';
 
-const index = () => {
+const Register = () => {
   const router=useRouter();
   const formik = useFormik({
     initialValues: registerInitialValues,
@@ -29,10 +29,10 @@ const index = () => {
   });
   return (
     <div className="columns-1 sm:columns-2 ">
-      <img src="/img/Picture.png" alt="Picture" className="hidden sm:block w-full h-[100vh]" />
+      <img src="https://i.imgur.com/Bduouzl.png" alt="Picture" className="hidden sm:block w-full h-[100vh]" />
       <div className="flex flex-col items-center sm:p-4 lg:p-8">
         <Link href="/">
-          <img src="/img/Logo.png" className="w-40" alt="logo" />
+          <img src="https://i.imgur.com/vTCA3oj.png" className="w-40" alt="logo" />
         </Link>
       </div>
       <div className="flex flex-col sm:px-[4rem] lg:px-[8rem]">
@@ -118,4 +118,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Register

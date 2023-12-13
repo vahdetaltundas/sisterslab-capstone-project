@@ -5,13 +5,12 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 
 const Header = () => {
   const [search, setSearch] = useState("");
-  console.log(search);
   return (
     <header className="container mx-auto shadow-xl">
       <nav className="flex flex-row bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 h-16">
         <div className="basis-1/3 flex justify-between items-center">
           <Link href="/" className="w-[7rem] h-auto">
-            <img src="/img/Logo.png" alt="logo" />
+            <img src="https://i.imgur.com/DciRya3.png" alt="logo" />
           </Link>
         </div>
         <div className="basis-1/3 flex items-center">
@@ -51,22 +50,6 @@ const Header = () => {
                 aria-controls="navbar-search"
                 aria-expanded="false"
               >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 17 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M1 1h15M1 7h15M1 13h15"
-                  />
-                </svg>
               </button>
             </div>
           </div>
