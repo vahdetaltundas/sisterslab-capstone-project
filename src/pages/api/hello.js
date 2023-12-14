@@ -1,5 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import axios from "axios";
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+const axiosInstance = axios.create({
+  baseURL,
+});
+
+
+
+export const deleteItem = async (url,id) => {
+  const response = await axiosInstance.delete(`/${url}/${id}`);
+  return response.data;
+};

@@ -3,8 +3,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
-import AdminLayout from "../components/adminLayout/AdminLayout"
-
+import AdminLayout from "../components/adminLayout/AdminLayout";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 
 export default function App({
   Component,
@@ -12,16 +13,18 @@ export default function App({
 }) {
   const router = useRouter();
   const currentPagePath = router.pathname;
-  if (currentPagePath.startsWith('/admin/profile')) {
+  if (currentPagePath.startsWith("/admin/profile")) {
     return (
-      <AdminLayout >
-        <Component {...pageProps} />
-      </AdminLayout>
+      <Provider store={store}>
+        <AdminLayout>
+          <ToastContainer />
+          <Component {...pageProps} />
+        </AdminLayout>
+      </Provider>
     );
   }
   return (
     <>
-    
       <SessionProvider session={session}>
         <ToastContainer />
         <Component {...pageProps} />
