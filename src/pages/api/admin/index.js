@@ -3,6 +3,16 @@ import cookie from "cookie";
 import { SignJWT } from "jose";
 
 const handler = async (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://vahdetaltundas-e-commerce-project.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   const { method } = req;
 
   if (method === "POST") {
@@ -27,9 +37,9 @@ const handler = async (req, res) => {
           path: "/",
         })
       );
-      res.status(200).json({ message: "Success" , success: true });
+      res.status(200).json({ message: "Success", success: true });
     } else {
-      res.status(200).json({ message: "Wrong Credentials", success: false  });
+      res.status(200).json({ message: "Wrong Credentials", success: false });
     }
   }
 

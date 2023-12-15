@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 dbConnect();
 
 export default NextAuth({
+  
   /*  adapter: MongoDBAdapter(clientPromise), */
   providers: [
     GithubProvider({

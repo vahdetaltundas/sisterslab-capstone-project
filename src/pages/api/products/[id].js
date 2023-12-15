@@ -2,9 +2,9 @@ import dbConnect from "../../../util/dbConnect";
 import Product from "../../../models/Product";
 const handler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://vahdetaltundas-e-commerce-project.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true);
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+res.setHeader('Access-Control-Allow-Credentials', true);
   await dbConnect();
   const {
     method,
