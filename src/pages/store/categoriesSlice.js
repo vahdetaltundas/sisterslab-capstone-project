@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { deleteItem } from '../api/hello';
+
 
 const initialState = {
   categories: [],
+  category:{},
   loadingCategories: false,
   error: null,
 };
@@ -13,6 +14,15 @@ export const fetchCategories = createAsyncThunk(
   async () => {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/categories`
+    );
+    return response.data;
+  }
+);
+export const fetchCategory = createAsyncThunk(
+  'categories/fetchCategory',
+  async (id) => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/categories/${id}`
     );
     return response.data;
   }
@@ -34,7 +44,11 @@ const categoriesSlice = createSlice({
       .addCase(fetchCategories.rejected, (state, action) => {
         state.loadingCategories = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(fetchCategory.fulfilled, (state, action) => {
+        state.category = action.payload;
+      })
+      ;
   },
 });
 

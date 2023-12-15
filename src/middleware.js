@@ -2,27 +2,25 @@ import { isAuthPages } from "./util/isAuthPages";
 import { verifyJwtToken } from "./util/verifyJwtToken";
 import { NextResponse } from "next/server";
 
-
-
 export async function middleware(request) {
   const { url, nextUrl, cookies } = request;
   const { value: token } = cookies.get("token") ?? { value: null };
   const hasVerifiedToken = token && (await verifyJwtToken(token));
   const isAuthPageRequested = isAuthPages(nextUrl.pathname);
 
-  if(isAuthPageRequested){
-    if(!hasVerifiedToken){
-        const response=NextResponse.next();
-        response.cookies.delete("token")
-        return response;
+  if (isAuthPageRequested) {
+    if (!hasVerifiedToken) {
+      const response = NextResponse.next();
+      response.cookies.delete("token");
+      return response;
     }
-    const response=NextResponse.redirect(new URL('/admin/profile',url));
+    const response = NextResponse.redirect(new URL("/admin/profile", url));
     return response;
   }
 
-  if(!hasVerifiedToken){
-    const searchParams=new URLSearchParams(nextUrl.searchParams);
-    searchParams.set("next",nextUrl.pathname);
+  if (!hasVerifiedToken) {
+    const searchParams = new URLSearchParams(nextUrl.searchParams);
+    searchParams.set("next", nextUrl.pathname);
 
     const response = NextResponse.redirect(
       new URL(`/admin?${searchParams}`, url)
@@ -36,5 +34,13 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/profile","/admin/profile/categories","/admin/profile/products","/admin/profile/users"],
+  matcher: [
+    "/admin",
+    "/admin/profile",
+    "/admin/profile/categories",
+    "/admin/profile/categories/add-category",
+    "/admin/profile/products",
+    "/admin/profile/products/add-product",
+    "/admin/profile/users",
+  ],
 };

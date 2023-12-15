@@ -13,6 +13,12 @@ const handler = async (req, res) => {
     }
   }
   if (method === "POST") {
+    const { email } = req.body;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      res.status(400).json({ message: "User already exists" });
+      return;
+    }
     try {
       const newUser = await User.create(req.body);
       res.status(200).json(newUser);
