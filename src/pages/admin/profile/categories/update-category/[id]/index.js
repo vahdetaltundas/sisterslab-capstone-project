@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import ErrorMessage from "@/components/errormessage";
-import { fetchCategory } from "@/pages/store/categoriesSlice";
+import { fetchCategory } from "@/store/categoriesSlice";
 import { verifyJwtToken } from "@/util/verifyJwtToken";
 import {
   updateCategoryFormInitialValue,

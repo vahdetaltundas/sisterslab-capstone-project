@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import AdminLayout from "../components/adminLayout/AdminLayout";
-import { store } from "./store/store";
 import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 export default function App({
   Component,

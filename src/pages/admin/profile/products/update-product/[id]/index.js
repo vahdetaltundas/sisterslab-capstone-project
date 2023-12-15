@@ -1,6 +1,6 @@
 import ErrorMessage from '@/components/errormessage';
-import { fetchCategories } from '@/pages/store/categoriesSlice';
-import { fetchProduct } from '@/pages/store/productsSlice';
+import { fetchCategories } from '@/store/categoriesSlice';
+import { fetchProduct } from '@/store/productsSlice';
 import { verifyJwtToken } from '@/util/verifyJwtToken';
 import { updateProductFormInitialValue, updateProductValidationSchema } from '@/validations/updateProductValidation';
 import axios from 'axios';

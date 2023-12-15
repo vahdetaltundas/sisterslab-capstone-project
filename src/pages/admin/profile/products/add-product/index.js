@@ -1,5 +1,5 @@
 import ErrorMessage from "@/components/errormessage";
-import { fetchCategories } from "@/pages/store/categoriesSlice";
+import { fetchCategories } from "@/store/categoriesSlice";
 import {
   addProductFormInitialValue,
   addProductValidationSchema,

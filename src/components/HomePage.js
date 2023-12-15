@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ProductCard from "@/components/ui/ProductCard";
 import Link from "next/link";
-import { fetchCategories } from "@/pages/store/categoriesSlice";
-import { fetchProducts } from "@/pages/store/productsSlice";
+import { fetchCategories } from "@/store/categoriesSlice";
+import { fetchProducts } from "@/store/productsSlice";
 import CardSkeleton from "./ui/CardSkeleton";
 
 const HomePage = () => {

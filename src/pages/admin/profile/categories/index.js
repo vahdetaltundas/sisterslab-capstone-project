@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import VerticalCard from "@/components/adminLayout/ui/VerticalCard";
 import { deleteItem } from "@/pages/api/hello";
-import { fetchCategories } from "@/pages/store/categoriesSlice";
+import { fetchCategories } from "@/store/categoriesSlice";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
