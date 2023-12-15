@@ -1,15 +1,10 @@
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import Carousel from "@/components/ui/ImageSlider";
-
+import HomePage from "@/components/HomePage";
 
 export default function Home() {
   
   return (
     <>
-      <Header />
-      <Carousel />
-      <Footer/>
+      <HomePage/>
     </>
   );
 }

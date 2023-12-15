@@ -23,12 +23,15 @@ export default function App({
       </Provider>
     );
   }
+  
   return (
     <>
+    <Provider store={store}>
       <SessionProvider session={session}>
         <ToastContainer />
         <Component {...pageProps} />
       </SessionProvider>
+      </Provider>
     </>
   );
 }

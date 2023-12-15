@@ -1,24 +1,41 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import UserCard from "@/components/adminLayout/ui/UserCard";
-
-import React from "react";
+import { deleteItem, fetchUsers } from "@/pages/api/hello";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const index = () => {
+  const [users, setUsers] = useState([]);
+  const router=useRouter();
+  const getUsers = async () => {
+    try {
+      const response = await fetchUsers();
+      setUsers(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+  const handleDelete = async (id) => {
+    try {
+      await deleteItem("users", id);
+      toast.success("Ürününüz silindi");
+      router.push("/admin/profile/users");
+    } catch (error) {
+      console.log(error);
+      toast.error("Ürününüz silinemedi!");
+    }
+  };
+
   return (
     <div className="grid grid-cols-6 gap-5">
-      <a
-        href="#"
-        className="col-end-7 inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-      >
-        Users
-      </a>
       <div className="col-span-6 grid justify-center md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
+        {users?.map((user) => (
+          <UserCard key={user.id} user={user} handleDelete={handleDelete} />
+        ))}
       </div>
     </div>
   );
