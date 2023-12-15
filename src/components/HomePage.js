@@ -1,13 +1,13 @@
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import CategoryCard from "@/components/ui/CategoryCard";
-import Carousel from "@/components/ui/ImageSlider";
+import Footer from "../components/layout/Footer";
+import Header from "../components/layout/Header";
+import CategoryCard from "../components/ui/CategoryCard";
+import Carousel from "../components/ui/ImageSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import ProductCard from "@/components/ui/ProductCard";
+import ProductCard from "../components/ui/ProductCard";
 import Link from "next/link";
-import { fetchCategories } from "@/store/categoriesSlice";
-import { fetchProducts } from "@/store/productsSlice";
+import { fetchCategories } from "../store/categoriesSlice";
+import { fetchProducts } from "../store/productsSlice";
 import CardSkeleton from "./ui/CardSkeleton";
 
 const HomePage = () => {
