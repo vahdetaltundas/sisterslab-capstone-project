@@ -1,4 +1,4 @@
-import dbConnect from "@/util/dbConnect";
+import dbConnect from "../../../util/dbConnect";
 import Product from "../../../models/Product";
 const handler = async (req, res) => {
   await dbConnect();

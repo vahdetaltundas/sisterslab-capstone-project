@@ -1,4 +1,4 @@
-import { getJwtSecretKey } from "@/util/verifyJwtToken";
+import { getJwtSecretKey } from "../../../util/verifyJwtToken";
 import cookie from "cookie";
 import { SignJWT } from "jose";
 
