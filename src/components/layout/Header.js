@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaRegUser, FaRegHeart } from "react-icons/fa";
+import { FaRegUser, FaRegHeart, FaHome } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 const Header = () => {
@@ -49,16 +49,20 @@ const Header = () => {
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200  "
                 aria-controls="navbar-search"
                 aria-expanded="false"
-              >
-              </button>
+              ></button>
             </div>
           </div>
         </div>
-        <div className="basis-1/3 flex justify-end items-center gap-7">
+        <div className="basis-1/4 flex justify-end items-center gap-7">
+          <Link href="/">
+            <FaHome className="w-6 h-6" />
+          </Link>
           <Link href="/auth/login">
             <FaRegUser className="w-6 h-6" />
           </Link>
-          <FaRegHeart className="w-6 h-6" />
+          <Link href="/product/favorites">
+            <FaRegHeart className="w-6 h-6" />
+          </Link>
           <MdOutlineShoppingCart className="w-6 h-6" />
         </div>
       </nav>

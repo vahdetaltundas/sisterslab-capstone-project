@@ -5,7 +5,7 @@ import axios from 'axios';
 const initialState = {
   products: [],
   product:{},
-  loadingCategories: false,
+  loadingProducts: false,
   error: null,
 };
 

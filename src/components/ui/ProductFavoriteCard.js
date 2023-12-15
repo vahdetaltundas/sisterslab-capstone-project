@@ -1,21 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "react-toastify";
+import { LuHeartOff } from "react-icons/lu";
 
-const ProductCard = ({product}) => {
+const ProductFavoriteCard = ({product,removeFromFavorites}) => {
   const router=useRouter()
-  const addToFavorites = (product) => {
-    const currentFavorites =
-      JSON.parse(localStorage.getItem("favorites")) || [];
-    // Eğer ürün varsa tekrar eklememek için yazılan bir kontrol
-    if (currentFavorites.find((item) => item._id === product._id)) {
-      return;
-    } else {
-      const updatedFavorites = [...currentFavorites, product];
-      toast.success("Ürün başarıyla favorilere eklendi!");
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-    }
-  };
+  
   return (
     <div className="group  flex w-full flex-col overflow-hidden border border-gray-100 bg-white shadow-md">
       <div className="relative flex h-[28rem] overflow-hidden" href="#">
@@ -25,22 +14,6 @@ const ProductCard = ({product}) => {
           src={product.img}
           alt="product image"
         />
-        <div className="absolute -right-16 bottom-0 mr-2 mb-4 space-y-2 transition-all duration-300 group-hover:right-0">
-          <button onClick={()=>addToFavorites(product)} className="flex h-10 w-10 items-center justify-center bg-gray-900 text-white transition hover:bg-gray-700">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
       </div>
       <div className="mt-4 px-5 pb-5">
         
@@ -55,6 +28,7 @@ const ProductCard = ({product}) => {
             
           </p>
         </div>
+        <div className="flex justify-between items-center">
         <button className="flex items-center justify-center bg-gray-900 px-2 py-1 text-sm text-white transition hover:bg-gray-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,9 +40,13 @@ const ProductCard = ({product}) => {
           </svg>
           Add to cart
         </button>
+        <button onClick={()=>removeFromFavorites(product)} className="flex h-10 w-10 items-center justify-center bg-gray-900 text-white transition hover:bg-gray-700">
+            <LuHeartOff className="w-5 h-5"/>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ProductCard;
+export default ProductFavoriteCard;

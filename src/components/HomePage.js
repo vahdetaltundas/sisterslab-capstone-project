@@ -8,17 +8,17 @@ import ProductCard from "@/components/ui/ProductCard";
 import Link from "next/link";
 import { fetchCategories } from "@/pages/store/categoriesSlice";
 import { fetchProducts } from "@/pages/store/productsSlice";
-
+import CardSkeleton from "./ui/CardSkeleton";
 
 const HomePage = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
-  const { products } = useSelector((state) => state.products);
+  const { products, loadingProducts } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchProducts());
   }, [dispatch]);
-
+  const skeletonArray = Array.from({ length: 12 }, (v, i) => i);
   const firstTwentyProducts = products.slice(0, 20);
   return (
     <>
@@ -42,13 +42,25 @@ const HomePage = () => {
       <h1 className="text-4xl font-bold text-center text-slate-900 mb-10">
         Ürünler
       </h1>
-      <div className="grid gird-cols-2 md:grid-cols-4 gap-5 mx-5">
-        {firstTwentyProducts.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
-      </div>
+      {loadingProducts ? (
+        <div className="grid gird-cols-2 md:grid-cols-4 gap-5 mx-5">
+          {skeletonArray.map((index) => (
+            <CardSkeleton key={index} />
+          ))}
+        </div>
+      ) : (
+        <div className="grid gird-cols-2 md:grid-cols-4 gap-5 mx-5">
+          {firstTwentyProducts.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      )}
+
       <div className="flex justify-center items-center m-10">
-        <Link href="/product" className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200">
+        <Link
+          href="/product"
+          className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200"
+        >
           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
             Bütün ürünler
           </span>
@@ -57,7 +69,7 @@ const HomePage = () => {
 
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

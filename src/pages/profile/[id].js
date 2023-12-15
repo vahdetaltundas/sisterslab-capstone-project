@@ -3,7 +3,8 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoMdExit } from "react-icons/io";
-import { FaShoppingBasket } from "react-icons/fa";
+import { FaShoppingBasket,FaHome } from "react-icons/fa";
+import Header from "@/components/layout/Header";
 const Profile = ({ user }) => {
   const { data: session } = useSession();
   const { push } = useRouter();
@@ -22,56 +23,8 @@ const Profile = ({ user }) => {
   }, [session, push]);
 
   return (
-    // <div className="flex px-10 min-h-[calc(100vh_-_433px)] lg:flex-row flex-col lg:mb-0 mb-10">
-    //   <div className="lg:w-80 w-100 flex-shrink-0">
-    //     <div className="relative flex flex-col items-center px-10 py-5 border border-b-0">
-    //       <img
-    //         src={user.avatar ? user.avatar:user.image}
-    //         alt=""
-    //         width={100}
-    //         height={100}
-    //         className="rounded-full"
-    //       />
-    //       <b className="text-2xl mt-1">{user.fullName}</b>
-    //     </div>
-    //     <ul className="text-center font-semibold">
-    //       <li
-    //         className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-    //           tabs === 0 && "bg-primary text-white"
-    //         }`}
-    //         onClick={() => setTabs(0)}
-    //       >
-    //         <i className="fa fa-home"></i>
-    //         <button className="ml-1 ">Account</button>
-    //       </li>
-    //       <li
-    //         className={`border border-t-0 w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-    //           tabs === 1 && "bg-primary text-white"
-    //         }`}
-    //         onClick={() => setTabs(1)}
-    //       >
-    //         <i className="fa fa-key"></i>
-    //         <button className="ml-1">Password</button>
-    //       </li>
-    //       <li
-    //         className={`border border-t-0 w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-    //           tabs === 2 && "bg-primary text-white"
-    //         }`}
-    //         onClick={() => setTabs(2)}
-    //       >
-    //         <i className="fa fa-motorcycle"></i>
-    //         <button className="ml-1">Orders</button>
-    //       </li>
-    //       <li
-    //         className={`border border-t-0 w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all`}
-    //         onClick={handleSignOut}
-    //       >
-    //         <i className="fa fa-sign-out"></i>
-    //         <button className="ml-1">Exit</button>
-    //       </li>
-    //     </ul>
-    //   </div>
-    // </div>
+    <>
+    <Header/>
     <div className="flex justify-center items-center">
       <div className="m-10 max-w-sm">
         <div className="rounded-lg border bg-white px-4 pt-8 pb-10 shadow-lg">
@@ -94,13 +47,18 @@ const Profile = ({ user }) => {
             Architecto, placeat!
           </p>
           <ul className="mt-3 divide-y rounded bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow">
+          <li onClick={()=>push("/")} className="flex items-center py-3 text-sm cursor-pointer">
+              <FaHome className="w-5 h-5 mr-5"/>
+              <span className="text-lg">Home Page</span>
+              
+            </li>
             <li className="flex items-center py-3 text-sm">
               <FaShoppingBasket className="w-5 h-5 mr-5"/>
               <span className="text-lg">Orders</span>
               
             </li>
             <li
-              className="flex items-center py-3 text-sm"
+              className="flex items-center py-3 text-sm cursor-pointer"
               onClick={handleSignOut}
             >
               <IoMdExit className="w-5 h-5 mr-5"/>
@@ -110,6 +68,7 @@ const Profile = ({ user }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
