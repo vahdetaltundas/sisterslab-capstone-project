@@ -34,7 +34,7 @@ const index = () => {
     <div className="grid grid-cols-6 gap-5">
       <div className="col-span-6 grid justify-center md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
         {users?.map((user) => (
-          <UserCard key={user.id} user={user} handleDelete={handleDelete} />
+          <UserCard key={user._id} user={user} handleDelete={handleDelete} />
         ))}
       </div>
     </div>

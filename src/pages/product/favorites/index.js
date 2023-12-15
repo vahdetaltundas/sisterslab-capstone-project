@@ -13,7 +13,6 @@ const Farvorites = () => {
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
     setFavorites(savedFavorites);
-    console.log(savedFavorites, "favoriler");
   }, []);
   const removeFromFavorites = (productToRemove) => {
     const updatedFavorites = favorites.filter(

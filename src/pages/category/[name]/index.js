@@ -29,7 +29,7 @@ const index = () => {
     <Header/>
     <Carousel/>
       <div className="container mx-auto">
-      <h1 class="text-4xl font-bold text-center text-slate-900">Ürünler</h1>
+      <h1 className="text-4xl font-bold text-center text-slate-900">Ürünler</h1>
         <h1 className="text-4xl text-slate-700 mb-10">Kategory: {name}</h1>
         <div className="grid grid-cols-3 gap-20">
           {products.map((product) => (
