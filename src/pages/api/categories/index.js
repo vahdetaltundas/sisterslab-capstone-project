@@ -1,16 +1,12 @@
 import dbConnect from "../../../util/dbConnect";
 import Category from "../../../models/Category";
-const handler = async (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://vahdetaltundas-e-commerce-project.vercel.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", true);
+import Cors from 'micro-cors';
+
+const cors = Cors({
+  origin: 'https://sisterslab-capstone-project-he57xu1oy-vahdetaltundas-projects.vercel.app',
+});
+async function handler  (req, res)  {
+  
   await dbConnect();
   const { method } = req;
 
@@ -38,4 +34,4 @@ const handler = async (req, res) => {
   }
 };
 
-export default handler;
+export default cors(handler);

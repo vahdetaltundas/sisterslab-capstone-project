@@ -3,10 +3,7 @@ import User from "../../../models/User";
 import generateAvatar from "@/util/generateAvatar";
 import bcrypt from "bcrypt";
 const handler = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://vahdetaltundas-e-commerce-project.vercel.app');
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-res.setHeader('Access-Control-Allow-Credentials', true);
+  
   await dbConnect();
   const { username, email, password } = req.body;
   
