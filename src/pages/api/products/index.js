@@ -27,7 +27,7 @@ res.setHeader('Access-Control-Allow-Credentials', true);
       const product = await Product.findOne({ name: name });
 
       if (product) {
-        return res.status(400).json({ message: "Product already exists" });
+        return res.status(404).json({ message: "Product already exists" });
       }
 
       const newProduct = await Product.create(req.body);
